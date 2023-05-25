@@ -17,7 +17,9 @@ library.add(far);
 
 
 
-createApp(App).component("font-awesome-icon", FontAwesomeIcon).mount("#app");
+createApp(App)
+.component("font-awesome-icon", FontAwesomeIcon)
+.mount("#app");
 
 // ICONA PIENA
 /* <font-awesome-icon :icon="['fas', 'star']" /> */

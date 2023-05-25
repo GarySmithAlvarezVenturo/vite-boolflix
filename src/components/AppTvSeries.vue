@@ -3,6 +3,21 @@ export default {
     props: {
         DataTvSeries: Object,
     },
+    methods: {
+        languageFilter(index){
+            if(index.original_language == 'en' ) {
+                return 'https://flagsapi.com/GB/flat/32.png'
+            } else if(index.original_language == 'ja') {
+                return 'https://flagsapi.com/JP/flat/32.png'
+
+            } else {
+                return 'https://flagsapi.com/'+index.original_language.toUpperCase()+'/shiny/32.png'
+            }
+   
+        }
+
+    },
+
 };
 </script>
 
@@ -13,7 +28,7 @@ export default {
         <div>
             <div class="name">{{ DataTvSeries.name }}</div>
             <div class="original_name">{{ DataTvSeries.original_name }}</div>
-            <div class="original_language">{{ DataTvSeries.original_language }}</div>
+            <span class="language"><img :src="languageFilter(DataTvSeries)" alt=""></span>
             <div class="vote_average">{{ DataTvSeries.vote_average }}</div>
         </div>
     </div>
