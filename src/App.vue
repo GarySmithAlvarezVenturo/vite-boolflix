@@ -25,7 +25,7 @@ export default {
       axios
         .get('https://api.themoviedb.org/3/search/movie', {
           params: {
-            api_key: '21df2f399925b36ce74442455c67fc8a',
+            api_key: '03618fbda09de1cb5f5d7d8db8628b0d',
             query: this.store.SearchBar,
           }
         })
@@ -34,7 +34,7 @@ export default {
       axios
         .get('https://api.themoviedb.org/3/search/tv', {
           params: {
-            api_key: '21df2f399925b36ce74442455c67fc8a',
+            api_key: '03618fbda09de1cb5f5d7d8db8628b0d',
             query: this.store.SearchBar,
           }
         })
