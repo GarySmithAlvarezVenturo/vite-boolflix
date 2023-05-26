@@ -76,7 +76,7 @@ export default {
 <!--STYLE -->
 
 <style lang="scss">
-@import "/node_modules/flag-icons/css/flag-icons.min.css";
+//@import "/node_modules/flag-icons/css/flag-icons.min.css"; NON USARE METODO VECCHIO!!!
 
 * {
   margin: 0;
