@@ -1,43 +1,113 @@
 <script>
+// Flag import
+import LangFlag from 'vue-lang-code-flags';
+
 export default {
+    methods: {
+        ConvertVote(vote) {
+            const convertedVote = Math.ceil((vote / 10) * 5);
+            return convertedVote;
+        },
+    },
+
+    components: {
+        LangFlag,
+    },
+
     props: {
         DataTvSeries: Object,
     },
-    methods: {
-        languageFilter(index){
-            if(index.original_language == 'en' ) {
-                return 'https://flagsapi.com/GB/flat/32.png'
-            } else if(index.original_language == 'ja') {
-                return 'https://flagsapi.com/JP/flat/32.png'
-
-            } else {
-                return 'https://flagsapi.com/'+index.original_language.toUpperCase()+'/shiny/32.png'
-            }
-   
-        }
-
-    },
-
 };
 </script>
 
 <template>
     <div class="card_series">
-        <img v-if="DataTvSeries.poster_path" :src="`http://image.tmdb.org/t/p/w342${DataTvSeries.poster_path}`" :alt="DataTvSeries.poster_path">
+        <img
+          :alt="DataTvSeries.poster_path"
+          :src="`http://image.tmdb.org/t/p/w342${DataTvSeries.poster_path}`"
+          v-if="DataTvSeries.poster_path"
+        >
         <img v-else src="../assets/img/fallback-image.png" alt="">
-        <div>
-            <div class="name">{{ DataTvSeries.name }}</div>
-            <div class="original_name">{{ DataTvSeries.original_name }}</div>
-            <span class="language"><img :src="languageFilter(DataTvSeries)" alt=""></span>
-            <div class="vote_average">{{ DataTvSeries.vote_average }}</div>
+        <div class="text">
+        
+            <div class="name">
+                <span>TITOLO: </span>
+                {{ DataTvSeries.name }}
+            </div>
+
+            <div class="original_name" v-show="DataTvSeries.original_name !== DataTvSeries.name">
+                <span>TITOLO ORIGINALE: </span>
+                {{ DataTvSeries.original_name }}
+            </div>
+
+            <div class="language">
+                <span>LINGUA ORIGINALE: </span>
+                <!--ISO FLAG-->
+                <lang-flag :iso="DataTvSeries.original_language" :squared="false" />
+            </div>
+
+            <div class="vote">
+                <span>VOTO: </span>
+                <!--VOTE STAR-->
+                <font-awesome-icon class="star" v-for="star in ConvertVote(DataTvSeries.vote_average)" :key="star"
+                    :icon="['fas', 'star']" />
+                <template v-for="star in 5 - ConvertVote(DataTvSeries.vote_average)">
+                    <font-awesome-icon class="star" :key="star" :icon="['far', 'star']"
+                        v-if="ConvertVote(DataTvSeries.vote_average) < 5" />
+                </template>
+            </div>
+            <div class="overview">
+                <span>OVERVIEW: </span>
+                {{ DataTvSeries.overview }}
+            </div>
         </div>
     </div>
 </template>
 
+<!--STYLE -->
+
 <style lang="scss" scoped>
 .card_series {
-    border: 1px solid black;
     color: rgb(30, 41, 92);
-    display: flex;
+    position: relative;
+    margin: 1.5rem 1rem;
+}
+
+.text {
+    width: 342px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    transition: opacity 0.3s ease;
+
+    .overview {
+        font-size: .8em;
+    }
+}
+
+.card_series:hover .text {
+    opacity: 1;
+}
+
+.card_series .image-container {
+    position: relative;
+}
+
+.card_series .image-container img {
+    transition: opacity 0.3s ease;
+}
+
+.card_series:hover .image-container img {
+    opacity: 0;
+}
+
+.star {
+    color: yellow;
 }
 </style>
+
+<lang-flag :iso="" />

@@ -4,5 +4,7 @@ export const store = reactive({
   ArrMovies: [],
   ArrTvSeries: [],
   SearchBar: "",
+  InputError: false,
 });
+
 

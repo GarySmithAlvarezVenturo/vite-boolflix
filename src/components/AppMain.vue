@@ -9,7 +9,7 @@ export default {
             store,
         };
     },
-    
+
     components: {
         AppMovies,
         AppTvSeries,
@@ -18,34 +18,45 @@ export default {
 </script>
 
 <template>
-    <div class="container">
-        <div class="cards_container">
-            <div class="movies">
-                <AppMovies 
-                    v-for="movies in store.ArrMovies" 
-                    :key="movies.id" 
-                    :DataMovies="movies"
-                />
-            </div>
-            <div class="series">
-                <AppTvSeries 
-                    v-for="series in store.ArrTvSeries" 
-                    :key="series.id" 
-                    :DataTvSeries="series"
-                />
-            </div>
+    <div class="cards_container">
+        <h2>FILM</h2>
+        <div class="movies">
+            <AppMovies
+              :DataMovies="movies"
+              :key="movies.id"
+              v-for="movies in store.ArrMovies"
+            />
+        </div>
+        <h2>SERIE TV</h2>
+        <div class="series">
+            <AppTvSeries
+              :DataTvSeries="series"
+              :key="series.id"
+              v-for="series in store.ArrTvSeries"
+            />
         </div>
     </div>
 </template>
 
+<!--STYLE -->
+
 <style lang="scss" scoped>
-.container {
-    height: 100vh;
+.cards_container {
+    background-color: rgb(20, 20, 20);
+    padding: 2rem;
+
+    h2 {
+        color: rgb(255, 255, 255);
+    }
 }
 
-.cards_container {
-    background-color: grey;
+.movies {
     display: flex;
-    flex-wrap: wrap;
+    overflow-y: auto;
+}
+
+.series {
+    display: flex;
+    overflow-y: auto;
 }
 </style>
